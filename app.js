@@ -6,6 +6,7 @@ import authRoute from './routes/auth.js';
 import userRoute from './routes/users.js';
 import menuRoute from './routes/menus.js';
 import orderRoute from './routes/orders.js';
+import reviewRoute from './routes/reviews.js';
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRoute);
 app.use('/api/v1/menus', menuRoute);
 app.use('/api/v1/orders', orderRoute);
+app.use('/api/v1/reviews', reviewRoute);
 
 export default app;
