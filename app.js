@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
+import mongoSanitize from 'express-mongo-sanitize';
 
 // requiring routes
 import authRoute from './routes/auth.js';
@@ -44,6 +45,9 @@ app.use(express.json({ limit: '10kb' }));
 
 // cookie parser middleware
 app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// data sanitization against NoSQL query injection
+app.use(mongoSanitize());
 
 // test middleware
 app.use((req, res, next) => {
