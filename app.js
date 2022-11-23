@@ -12,6 +12,12 @@ if (app.get('env') === 'development') {
   app.use(morgan('dev'));
 }
 
+// test middleware
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/users', userRoute);
 
