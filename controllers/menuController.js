@@ -90,4 +90,19 @@ export const updateMenu = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const deleteMenu = asyncHandler(async (req, res, next) => { });
+export const deleteMenu = asyncHandler(async (req, res, next) => {
+  const { id: menuId } = req.params;
+
+  const menu = await Menu.findByIdAndDelete(menuId);
+
+  if (!menu) {
+    return next(
+      new NotFoundError(`There is no menu found with the given ID → ${menuId}`)
+    );
+  }
+
+  res.status(StatusCodes.NO_CONTENT).json({
+    status: 'success',
+    menu: null,
+  });
+});
