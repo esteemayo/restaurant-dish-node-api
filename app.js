@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
+import cors from 'cors';
 
 // requiring routes
 import authRoute from './routes/auth.js';
@@ -13,6 +14,12 @@ import reviewRoute from './routes/reviews.js';
 const app = express();
 
 // global middlewares
+// implement CORS
+app.use(cors());
+
+// Access-Control-Allow-Origin
+app.options('*', cors());
+
 // set security HTTP headers
 app.use(helmet());
 
