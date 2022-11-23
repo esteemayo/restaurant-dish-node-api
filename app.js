@@ -15,6 +15,7 @@ import userRoute from './routes/users.js';
 import menuRoute from './routes/menus.js';
 import orderRoute from './routes/orders.js';
 import reviewRoute from './routes/reviews.js';
+import NotFoundError from './errors/notFound.js';
 
 // start express app
 const app = express();
@@ -73,5 +74,9 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/menus', menuRoute);
 app.use('/api/v1/orders', orderRoute);
 app.use('/api/v1/reviews', reviewRoute);
+
+app.all('*', (req, res, next) => {
+  next(new NotFoundError(`Can't find ${req.originalUrl} on this server`));
+});
 
 export default app;
