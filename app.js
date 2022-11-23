@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 
@@ -48,6 +49,9 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // data sanitization against NoSQL query injection
 app.use(mongoSanitize());
+
+// data sanitization against XSS
+app.use(xss());
 
 // test middleware
 app.use((req, res, next) => {
