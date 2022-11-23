@@ -1,3 +1,4 @@
+import slugify from 'slugify';
 import mongoose from 'mongoose';
 
 const menuSchema = new mongoose.Schema({
@@ -5,6 +6,7 @@ const menuSchema = new mongoose.Schema({
     type: String,
     required: [true, 'A menu must have a name'],
   },
+  slug: String,
   price: {
     type: Number,
     required: [true, 'A menu must have a price'],
