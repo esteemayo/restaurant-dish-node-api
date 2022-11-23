@@ -16,6 +16,7 @@ import menuRoute from './routes/menus.js';
 import orderRoute from './routes/orders.js';
 import reviewRoute from './routes/reviews.js';
 import NotFoundError from './errors/notFound.js';
+import globalErrorHandler from './middlewares/errorHandler.js';
 
 // start express app
 const app = express();
@@ -78,5 +79,7 @@ app.use('/api/v1/reviews', reviewRoute);
 app.all('*', (req, res, next) => {
   next(new NotFoundError(`Can't find ${req.originalUrl} on this server`));
 });
+
+app.use(globalErrorHandler);
 
 export default app;
