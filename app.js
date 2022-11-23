@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
 
 // requiring routes
 import authRoute from './routes/auth.js';
@@ -27,6 +28,15 @@ app.use(helmet());
 if (app.get('env') === 'development') {
   app.use(morgan('dev'));
 }
+
+// limit request from same api
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 15 * 60 * 1000,
+  message: 'Too many requests from this IP, Please try again in 15 minutes!',
+});
+
+app.use('/api', limiter);
 
 // test middleware
 app.use((req, res, next) => {
