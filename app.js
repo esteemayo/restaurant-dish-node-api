@@ -5,6 +5,7 @@ import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
+import compression from 'compression';
 import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
 
@@ -56,6 +57,9 @@ app.use(xss());
 
 // prevent parameter pollution
 app.use(hpp());
+
+// compression middleware
+app.use(compression());
 
 // test middleware
 app.use((req, res, next) => {
