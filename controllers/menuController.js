@@ -40,7 +40,22 @@ export const getMenuById = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const getMenuBySlug = asyncHandler(async (req, res, next) => { });
+export const getMenuBySlug = asyncHandler(async (req, res, next) => {
+  const { slug } = req.params;
+
+  const menu = await Menu.findOne({ slug });
+
+  if (!menu) {
+    return next(
+      new NotFoundError(`There is no menu found with the given SLUG → ${slug}`)
+    );
+  }
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    menu,
+  });
+});
 
 export const createMenu = asyncHandler(async (req, res, next) => { });
 
