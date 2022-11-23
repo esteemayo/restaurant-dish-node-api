@@ -66,6 +66,28 @@ export const createMenu = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const updateMenu = asyncHandler(async (req, res, next) => { });
+export const updateMenu = asyncHandler(async (req, res, next) => {
+  const { id: menuId } = req.params;
+
+  const menu = await Menu.findByIdAndUpdate(
+    menuId,
+    { $set: { ...req.body } },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!menu) {
+    return next(
+      new NotFoundError(`There is no menu found with the given ID → ${menuId}`)
+    );
+  }
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    menu,
+  });
+});
 
 export const deleteMenu = asyncHandler(async (req, res, next) => { });
