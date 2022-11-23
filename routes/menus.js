@@ -14,4 +14,10 @@ router
     menuController.createMenu
   );
 
+router
+  .route('/:id')
+  .get(menuController.getMenuById)
+  .patch(menuController.updateMenu)
+  .delete(menuController.deleteMenu);
+
 export default router;
