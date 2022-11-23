@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import cookieParser from 'cookie-parser';
 
 // requiring routes
 import authRoute from './routes/auth.js';
@@ -40,6 +41,9 @@ app.use('/api', limiter);
 
 // body Parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
+
+// cookie parser middleware
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // test middleware
 app.use((req, res, next) => {
