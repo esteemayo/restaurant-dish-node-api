@@ -57,7 +57,14 @@ export const getMenuBySlug = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const createMenu = asyncHandler(async (req, res, next) => { });
+export const createMenu = asyncHandler(async (req, res, next) => {
+  const menu = await Menu.create({ ...req.body });
+
+  res.status(StatusCodes.CREATED).json({
+    status: 'success',
+    menu,
+  });
+});
 
 export const updateMenu = asyncHandler(async (req, res, next) => { });
 
