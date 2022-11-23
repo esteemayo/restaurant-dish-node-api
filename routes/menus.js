@@ -19,7 +19,15 @@ router
 router
   .route('/:id')
   .get(menuController.getMenuById)
-  .patch(menuController.updateMenu)
-  .delete(menuController.deleteMenu);
+  .patch(
+    authMiddleware.protect,
+    authMiddleware.restrictTo('admin'),
+    menuController.updateMenu
+  )
+  .delete(
+    authMiddleware.protect,
+    authMiddleware.restrictTo('admin'),
+    menuController.deleteMenu
+  );
 
 export default router;
