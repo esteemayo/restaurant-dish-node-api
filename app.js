@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
+import hpp from 'hpp';
 
 // requiring routes
 import authRoute from './routes/auth.js';
@@ -52,6 +53,9 @@ app.use(mongoSanitize());
 
 // data sanitization against XSS
 app.use(xss());
+
+// prevent parameter pollution
+app.use(hpp());
 
 // test middleware
 app.use((req, res, next) => {
