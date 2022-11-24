@@ -6,13 +6,13 @@ import APIFeatures from '../utils/apiFeatures.js';
 import NotFoundError from '../errors/notFound.js';
 
 export const getMenus = asyncHandler(async (req, res, next) => {
-  const features = new APIFeatures(await Menu.find(), req.query)
+  const features = new APIFeatures(Menu.find(), req.query)
     .filter()
     .sort()
     .limitFields()
     .paginate();
 
-  const menus = features.query;
+  const menus = await features.query;
 
   res.status(StatusCodes.OK).json({
     status: 'success',
