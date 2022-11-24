@@ -22,7 +22,22 @@ export const getReviews = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const getReview = asyncHandler(async (req, res, next) => { });
+export const getReview = asyncHandler(async (req, res, next) => {
+  const { id: reviewId } = req.params;
+
+  const review = await Review.findById(reviewId);
+
+  if (!review) {
+    return next(
+      new NotFoundError(`There is no review found with the given ID → ${reviewId}`)
+    );
+  }
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    review,
+  });
+});
 
 export const createReview = asyncHandler(async (req, res, next) => { });
 
