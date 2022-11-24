@@ -27,7 +27,7 @@ menuSchema.pre('save', async function (next) {
   this.slug = slugify(this.name, { lower: true });
 
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
-  const menuWithSlug = await this.constructor.findOne({ slug: slugRegEx });
+  const menuWithSlug = await this.constructor.find({ slug: slugRegEx });
 
   if (menuWithSlug.length) {
     this.slug = `${this.slug}-${menuWithSlug.length + 1}`;
