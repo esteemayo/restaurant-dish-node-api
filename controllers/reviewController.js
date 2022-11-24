@@ -9,7 +9,7 @@ export const getReviews = asyncHandler(async (req, res, next) => {
   let filter = {};
   if (req.params.menuId) filter = { menu: req.params.menuId };
 
-  const features = new APIFeatures(Review.find(filter), req.query)
+  const features = new APIFeatures(await Review.find(filter), req.query)
     .filter()
     .sort()
     .limitFields()
