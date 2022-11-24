@@ -11,7 +11,7 @@ export const getOrders = asyncHandler(async (req, res, next) => {
     .limitFields()
     .paginate();
 
-  const orders = features.query;
+  const orders = await features.query;
 
   res.status(StatusCodes.OK).json({
     status: 'success',
