@@ -6,7 +6,7 @@ import User from '../models/User.js';
 import createSendToken from '../utils/createSendToken.js';
 
 export const register = asyncHandler(async (req, res, next) => {
-  const newUser = _.pick(req.body, ['name', 'email', 'role', 'password']);
+  const newUser = _.pick(req.body, ['name', 'email', 'role', 'password', 'confirmPassword']);
 
   const user = await User.create({ ...newUser });
 
