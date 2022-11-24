@@ -39,7 +39,17 @@ export const getReview = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const createReview = asyncHandler(async (req, res, next) => { });
+export const createReview = asyncHandler(async (req, res, next) => {
+  if (!req.body.user) req.body.user = req.user.id;
+  if (!req.body.menu) req.body.menu = req.params.menuId;
+
+  const review = await Review.create({ ...req.body });
+
+  res.status(StatusCodes.CREATED).json({
+    status: 'success',
+    review,
+  });
+});
 
 export const updateReview = asyncHandler(async (req, res, next) => { });
 
