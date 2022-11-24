@@ -18,5 +18,5 @@ export const login = asyncHandler(async (req, res, next) => {
     return next(new UnauthenticatedError('Incorrect email or password'));
   }
 
-  createSendToken(user, StatusCodes.OK, req.res);
+  createSendToken(user, StatusCodes.OK, req, res);
 });
