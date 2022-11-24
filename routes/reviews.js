@@ -1,9 +1,11 @@
 import express from 'express';
 
-import authMiddiware from '../middlewares/authMiddleware.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 import * as reviewController from '../controllers/reviewController.js';
 
 const router = express.Router();
+
+router.use(authMiddleware.protect);
 
 router
   .route('/')
