@@ -8,6 +8,9 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import mongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: './config.env' });
 
 // requiring routes
 import authRoute from './routes/auth.js';
