@@ -51,6 +51,28 @@ export const createReview = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const updateReview = asyncHandler(async (req, res, next) => { });
+export const updateReview = asyncHandler(async (req, res, next) => {
+  const { id: reviewId } = req.params;
+
+  const review = await Review.findByIdAndUpdate(
+    reviewId,
+    { $set: { ...req.body } },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  if (!review) {
+    return next(
+      new NotFoundError(`There is no review found with the given ID → ${reviewId}`)
+    );
+  }
+
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    review,
+  });
+});
 
 export const deleteReview = asyncHandler(async (req, res, next) => { });
