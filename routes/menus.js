@@ -1,5 +1,6 @@
 import express from 'express';
 
+import reviewRouter from './reviews.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import * as menuController from '../controllers/menuController.js';
 
