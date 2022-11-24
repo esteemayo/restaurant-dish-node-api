@@ -9,7 +9,7 @@ router.use(authMiddleware.protect);
 
 router
   .route('/')
-  .get(reviewController.getReviews)
+  .get(authMiddleware.restrictTo('admin'), reviewController.getReviews)
   .post(reviewController.createReview);
 
 router
