@@ -27,6 +27,15 @@ const reviewSchema = new mongoose.Schema({
 
 reviewSchema.index({ menu: 1, user: 1 }, { unique: true });
 
+reviewSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'user',
+    select: 'name',
+  });
+
+  next();
+});
+
 const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
 
 export default Review;
