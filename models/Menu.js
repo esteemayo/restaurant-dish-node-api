@@ -35,6 +35,9 @@ const menuSchema = new mongoose.Schema({
   toObject: { virtuals: true },
 });
 
+menuSchema.index({ name: 1, price: 1 });
+menuSchema.index({ slug: 1 });
+
 menuSchema.virtual('reviews', {
   ref: 'Review',
   localField: '_id',
