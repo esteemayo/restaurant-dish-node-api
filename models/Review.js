@@ -36,6 +36,35 @@ reviewSchema.pre(/^find/, function (next) {
   next();
 });
 
+reviewSchema.statics.calcAverageRatings = async function (menuId) {
+  const stats = await this.aggregate([
+    {
+      $match: { menu: menuId },
+    },
+    {
+      $group: {
+        _id: '$menu',
+        nRating: { $sum: 1 },
+        avgRating: { $avg: '$rating' },
+      },
+    },
+  ]);
+};
+
+reviewSchema.post('save', function () {
+  this.constructor.calcAverageRatings(this.menu);
+});
+
+reviewSchema.pre(/^findOneAnd/, async function (next) {
+  this.r = await this.clone().findOne();
+  next();
+});
+
+reviewSchema.post(/^findOneAnd/, async function (doc, next) {
+  await doc.constructor.calcAverageRatings(this.r.menu);
+  next();
+});
+
 const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
 
 export default Review;
