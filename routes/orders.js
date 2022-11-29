@@ -10,7 +10,7 @@ router.use(authMiddleware.protect);
 router
   .route('/')
   .get(authMiddleware.restrictTo('admin'), orderController.getOrders)
-  .post(orderController.createOrder);
+  .post(authMiddleware.restrictTo('user'), orderController.createOrder);
 
 router
   .route('/:id')
