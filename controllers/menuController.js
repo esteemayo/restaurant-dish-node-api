@@ -27,7 +27,7 @@ export const getMenus = asyncHandler(async (req, res, next) => {
 export const getMenuById = asyncHandler(async (req, res, next) => {
   const { id: menuId } = req.params;
 
-  const menu = await Menu.findById(menuId);
+  const menu = await Menu.findById(menuId).populate('reviews');
 
   if (!menu) {
     return next(
@@ -44,7 +44,7 @@ export const getMenuById = asyncHandler(async (req, res, next) => {
 export const getMenuBySlug = asyncHandler(async (req, res, next) => {
   const { slug } = req.params;
 
-  const menu = await Menu.findOne({ slug });
+  const menu = await Menu.findOne({ slug }).populate('reviews');
 
   if (!menu) {
     return next(
