@@ -25,6 +25,15 @@ const orderSchema = new mongoose.Schema({
   timestamps: true,
 });
 
+orderSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'processedBy',
+    select: 'name',
+  });
+
+  next();
+});
+
 const Order = mongoose.models.Order || mongoose.model('Order', orderSchema);
 
 export default Order;
