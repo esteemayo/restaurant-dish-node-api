@@ -4,7 +4,7 @@ import asyncHandler from 'express-async-handler';
 import APIFeatures from '../utils/apiFeatures.js';
 import NotFoundError from '../errors/notFound.js';
 
-const getAll = (Model) =>
+export const getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
     let filter = {};
     if (req.params.menuId) filter = { menu: req.params.menuId };
@@ -25,7 +25,7 @@ const getAll = (Model) =>
     })
   });
 
-const getOneById = (Model, popOptions) =>
+export const getOneById = (Model, popOptions) =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -46,7 +46,7 @@ const getOneById = (Model, popOptions) =>
     });
   });
 
-const getOneBySlug = (Model, popOptions) =>
+export const getOneBySlug = (Model, popOptions) =>
   asyncHandler(async (req, res, next) => {
     const { slug } = req.params;
 
@@ -67,7 +67,7 @@ const getOneBySlug = (Model, popOptions) =>
     });
   });
 
-const createOne = Model =>
+export const createOne = Model =>
   asyncHandler(async (req, res, next) => {
     const doc = await Model.create({ ...req.body });
 
@@ -77,7 +77,7 @@ const createOne = Model =>
     });
   });
 
-const updateOne = (Model) =>
+export const updateOne = (Model) =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -102,7 +102,7 @@ const updateOne = (Model) =>
     });
   });
 
-const deleteOne = Model =>
+export const deleteOne = Model =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -119,14 +119,3 @@ const deleteOne = Model =>
       doc: null,
     });
   });
-
-const factory = {
-  getAll,
-  getOneById,
-  getOneBySlug,
-  createOne,
-  updateOne,
-  deleteOne,
-};
-
-export default factory;
