@@ -50,6 +50,18 @@ reviewSchema.statics.calcAverageRatings = async function (menuId) {
       },
     },
   ]);
+
+  if (stats.length > 0) {
+    await Menu.findByIdAndUpdate(menuId, {
+      ratingsQuantity: stats[0].nRating,
+      ratingsAverage: stats[0].avgRating,
+    });
+  } else {
+    await Menu.findByIdAndUpdate(menuId, {
+      ratingsQuantity: 0,
+      ratingsAverage: 4.5,
+    });
+  }
 };
 
 reviewSchema.post('save', function () {
