@@ -70,6 +70,8 @@ export const createMenu = asyncHandler(async (req, res, next) => {
 export const updateMenu = asyncHandler(async (req, res, next) => {
   const { id: menuId } = req.params;
 
+  if (req.body.name) req.body.slug = slugify(req.body.name, { lower: true });
+
   const menu = await Menu.findByIdAndUpdate(
     menuId,
     { $set: { ...req.body } },
