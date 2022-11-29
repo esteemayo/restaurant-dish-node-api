@@ -88,7 +88,7 @@ export const updateReview = asyncHandler(async (req, res, next) => {
 export const deleteReview = asyncHandler(async (req, res, next) => {
   const { id: reviewId } = req.params;
 
-  const review = await Review.findByIdAndDelete(reviewId);
+  const review = await Review.findById(reviewId);
 
   if (!review) {
     return next(
@@ -96,8 +96,14 @@ export const deleteReview = asyncHandler(async (req, res, next) => {
     );
   }
 
-  res.status(StatusCodes.NO_CONTENT).json({
-    status: 'success',
-    review: null,
-  });
+  if (String(review.user._id) === req.user.id || req.user.role === 'admin') {
+    await review.remove();
+
+    return res.status(StatusCodes.NO_CONTENT).json({
+      status: 'success',
+      review: null,
+    });
+  }
+
+  return next(new ForbiddenError('You do not have permission to perform this operation'));
 });
