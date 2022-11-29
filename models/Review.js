@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Menu from './Menu.js';
 
 const reviewSchema = new mongoose.Schema({
   remarks: {
