@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import Review from '../models/Review.js';
 import APIFeatures from '../utils/apiFeatures.js';
 import NotFoundError from '../errors/notFound.js';
+import ForbiddenError from '../errors/forbidden.js';
 
 export const getReviews = asyncHandler(async (req, res, next) => {
   let filter = {};
