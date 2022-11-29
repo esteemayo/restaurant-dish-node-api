@@ -35,6 +35,12 @@ const menuSchema = new mongoose.Schema({
   toObject: { virtuals: true },
 });
 
+menuSchema.virtual('reviews', {
+  ref: 'Review',
+  localField: '_id',
+  foreignField: 'menu',
+});
+
 menuSchema.pre('save', async function (next) {
   if (!this.isModified('name')) return next();
   this.slug = slugify(this.name, { lower: true });
