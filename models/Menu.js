@@ -15,8 +15,13 @@ const menuSchema = new mongoose.Schema({
     type: String,
   },
   ingredients: {
-    type: String,
-    required: [true, 'A menu must have ingredients'],
+    type: Array,
+    validate: {
+      validator: function (val) {
+        return val && val.length > 0;
+      },
+      message: 'A menu must have ingredients'
+    },
   },
   ratingsAverage: {
     type: Number,
